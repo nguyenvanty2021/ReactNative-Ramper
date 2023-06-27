@@ -66,18 +66,18 @@ function App(): JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  const handleLoginSocialByRamper = async () => {
-    try {
-      const user = await Auth.signin(
-        'apple',
-        // browserProps, //optional
-      );
-      console.log(user);
-      // handle response
-    } catch (error) {
-      // handle error
-    }
-  };
+  // const handleLoginSocialByRamper = async () => {
+  //   try {
+  //     const user = await Auth.signin(
+  //       'apple',
+  //       // browserProps, //optional
+  //     );
+  //     console.log(user);
+  //     // handle response
+  //   } catch (error) {
+  //     // handle error
+  //   }
+  // };
   const handleGetUser = async () => {
     try {
       const user = await Auth.getUser();
@@ -88,7 +88,7 @@ function App(): JSX.Element {
     }
   };
   useEffect(() => {
-    handleLoginSocialByRamper();
+    //handleLoginSocialByRamper();
     handleGetUser();
   }, []);
   return (
