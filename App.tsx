@@ -6,70 +6,59 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {Auth} from '@ramper/react-native-core';
+// import {Auth} from '@ramper/react-native-core';
 // import {WalletView} from '@ramper/react-native-core';
 // import {EthDataProvider} from '@ramper/react-native-evm';
 import {Ramper} from '@ramper/react-native-core';
-import {
-  // Button,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
+import Account from './screens/Account/index';
 // import {Auth} from '@ramper/react-native-core';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {RamperScreen} from '@ramper/react-native-core';
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+// import {Colors} from 'react-native/Libraries/NewAppScreen';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import HomePage from './screens/HomePage';
+
+// type SectionProps = PropsWithChildren<{
+//   title: string;
+// }>;
 Ramper.configure({
   appId: 'pcsnabqhiu',
   locale: 'en',
   chainName: 'ethereum',
 });
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+// function Section({children, title}: SectionProps): JSX.Element {
+//   const isDarkMode = useColorScheme() === 'dark';
+//   return (
+//     <View style={styles.sectionContainer}>
+//       <Text
+//         style={[
+//           styles.sectionTitle,
+//           {
+//             color: isDarkMode ? Colors.white : Colors.black,
+//           },
+//         ]}>
+//         {title}
+//       </Text>
+//       <Text
+//         style={[
+//           styles.sectionDescription,
+//           {
+//             color: isDarkMode ? Colors.light : Colors.dark,
+//           },
+//         ]}>
+//         {children}
+//       </Text>
+//     </View>
+//   );
+// }
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // const isDarkMode = useColorScheme() === 'dark';
+  const Stack = createStackNavigator();
+  // const backgroundStyle = {
+  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // };
   // const handleLoginSocialByRamper = async () => {
   //   try {
   //     const user = await Auth.signin(
@@ -82,15 +71,15 @@ function App(): JSX.Element {
   //     // handle error
   //   }
   // };
-  const handleSignout = async () => {
-    try {
-      await Auth.signOut();
-      // browserProps //optional
-      // handle signout
-    } catch (error) {
-      // handle error
-    }
-  };
+  // const handleSignout = async () => {
+  //   try {
+  //     await Auth.signOut();
+  //     // browserProps //optional
+  //     // handle signout
+  //   } catch (error) {
+  //     // handle error
+  //   }
+  // };
   // const handleGetUser = async () => {
   //   try {
   //     const user = await Auth.getUser();
@@ -105,74 +94,77 @@ function App(): JSX.Element {
   //   handleGetUser();
   // }, []);
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <Text>123456789111</Text>
-      <Text onPress={handleSignout}>Sign out</Text>
-      {/* <WalletView
-        dataProviders={[{name: 'ethereum', dataProvider: EthDataProvider}]}
-        onCLose={() => {}} // this method will be called when the user clicks on the close button of wallet view
-      /> */}
-      <RamperScreen
-        providers={[
-          {
-            name: 'google',
-          },
-          {
-            name: 'facebook',
-          },
-          {
-            name: 'twitter',
-          },
-          {
-            name: 'apple',
-          },
-        ]}
-        theme="light"
-        onSuccess={user => {
-          //handle user
-          console.log(user);
-        }}
-        onFailure={error => {
-          // handle error
-          console.log(error);
-        }}
-        onClose={() => {}}
-        // logo={require('mylogo') | {uri: 'mylogourl'}}
-        browserProps // optional
-      />
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{
+            headerShown: false, // hidden header
+          }}
+          name="HomePage"
+          component={HomePage}
+        />
+        <Stack.Screen name="Account" component={Account} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    // <SafeAreaView style={backgroundStyle}>
+    //   <Text>123456789113331</Text>
+    //   <Text onPress={handleSignout}>Sign out</Text>
+    //   {/* <WalletView
+    //     dataProviders={[{name: 'ethereum', dataProvider: EthDataProvider}]}
+    //     onCLose={() => {}} // this method will be called when the user clicks on the close button of wallet view
+    //   /> */}
+    //   <StatusBar
+    //     barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+    //     backgroundColor={backgroundStyle.backgroundColor}
+    //   />
+    //   <ScrollView
+    //     contentInsetAdjustmentBehavior="automatic"
+    //     style={backgroundStyle}>
+    //     <Header />
+    //     <View
+    //       style={{
+    //         backgroundColor: isDarkMode ? Colors.black : Colors.white,
+    //       }}>
+    //       <Section title="Step One">
+    //         Edit <Text style={styles.highlight}>App.tsx</Text> to change this
+    //         screen and then come back to see your edits.
+    //       </Section>
+    //       <Section title="See Your Changes">
+    //         <ReloadInstructions />
+    //       </Section>
+    //       <Section title="Debug">
+    //         <DebugInstructions />
+    //       </Section>
+    //       <Section title="Learn More">
+    //         Read the docs to discover what to do next:
+    //       </Section>
+    //       <LearnMoreLinks />
+    //     </View>
+    //   </ScrollView>
+    //   <Text>123456789111</Text>
+    // </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  border: {
+    borderBottomColor: '#666666',
+    borderBottomWidth: 1,
+    width: 120,
+  },
+  text: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    textAlign: 'center',
+    marginBottom: 280,
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
