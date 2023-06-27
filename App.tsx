@@ -5,10 +5,14 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import type {PropsWithChildren} from 'react';
+import {Auth} from '@ramper/react-native-core';
+// import {WalletView} from '@ramper/react-native-core';
+// import {EthDataProvider} from '@ramper/react-native-evm';
 import {Ramper} from '@ramper/react-native-core';
 import {
+  // Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -17,7 +21,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import {Auth} from '@ramper/react-native-core';
+// import {Auth} from '@ramper/react-native-core';
 import {
   Colors,
   DebugInstructions,
@@ -78,22 +82,36 @@ function App(): JSX.Element {
   //     // handle error
   //   }
   // };
-  const handleGetUser = async () => {
+  const handleSignout = async () => {
     try {
-      const user = await Auth.getUser();
-      console.log(user);
-      // handle user
+      await Auth.signOut();
+      // browserProps //optional
+      // handle signout
     } catch (error) {
       // handle error
     }
   };
-  useEffect(() => {
-    //handleLoginSocialByRamper();
-    handleGetUser();
-  }, []);
+  // const handleGetUser = async () => {
+  //   try {
+  //     const user = await Auth.getUser();
+  //     console.log(user);
+  //     // handle user
+  //   } catch (error) {
+  //     // handle error
+  //   }
+  // };
+  // useEffect(() => {
+  //   //handleLoginSocialByRamper();
+  //   handleGetUser();
+  // }, []);
   return (
     <SafeAreaView style={backgroundStyle}>
       <Text>123456789111</Text>
+      <Text onPress={handleSignout}>Sign out</Text>
+      {/* <WalletView
+        dataProviders={[{name: 'ethereum', dataProvider: EthDataProvider}]}
+        onCLose={() => {}} // this method will be called when the user clicks on the close button of wallet view
+      /> */}
       <RamperScreen
         providers={[
           {
